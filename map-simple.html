@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<style type="text/css">
+		html{ 
+			height: 100%
+		}
+		body{
+			height: 100%;
+			margin: 0;
+			padding: 0
+		}
+		#map-canvas{
+			height: 100%;
+		}
+	</style>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSB5v5O_CqZNlcHw8VRhpczNPH6KAWzV4&sensor=false">
+	</script>
+	
+</head>
+<body>
+	<div id="map-canvas"></div>
+
+	<script type="text/javascript">
+		var myLatlng = new google.maps.LatLng(-1.2699534,36.8041876);
+		var mapOptions = {
+			center: myLatlng,
+			zoom: 10
+		};
+		var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+		//marker
+		var nationalParkLatLng = new google.maps.LatLng(-1.330079, 36.839457);
+		var embakasi = new google.maps.LatLng(-1.338316, 36.902628);
+		var marker = new google.maps.Marker({
+			position: nationalParkLatLng,
+			map: map,
+			title: "National Park",
+			animation: google.maps.Animation.DROP
+		});
+		var embakasiMarker  = new google.maps.Marker({
+			position: embakasi,
+			map: map,
+			title: "Embakasi",
+			animation: google.maps.Animation.DROP
+		});
+
+		var machakosMarker  = new google.maps.Marker({
+			position: new google.maps.LatLng(-1.423436, 36.965799),
+			map: map,
+			title: "Machakos",
+			animation: google.maps.Animation.DROP
+		});
+		google.maps.event.addListener(machakosMarker, 'click', toggleBounce);
+
+		function loadScript () {
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize';
+			document.body.appendChild(script);
+
+		}
+
+		function toggleBounce() {
+
+		  if (machakosMarker.getAnimation() != null) {
+		    machakosMarker.setAnimation(null);
+		  } else {
+		    machakosMarker.setAnimation(google.maps.Animation.BOUNCE);
+		  }
+		}
+		window.onlaod = loadScript;
+	</script>
+</body>
+</html>
