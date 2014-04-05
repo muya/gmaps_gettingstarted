@@ -28,6 +28,11 @@
 			center: myLatlng,
 			zoom: 10
 		};
+		var truckRouteCoord = [
+			new google.maps.LatLng(-1.330079, 36.839457), //national park
+			new google.maps.LatLng(-1.338316, 36.902628), //embakasi
+			new google.maps.LatLng(-1.423436, 36.965799) //machakos
+		];
 		var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 		//marker
@@ -46,13 +51,28 @@
 			animation: google.maps.Animation.DROP
 		});
 
+		var machakosInfo = '<div id="machakos-content"><div id="checkpoint-info"><p>CheckPoint: Machakos</p><p>Driver: Yule Msee</p><p>Check In Time: 24th Apr 2014 14:40</p><p>Truck No: KBY 452D</p></div></div>';
+		var machakosInfoWindow = new google.maps.InfoWindow({
+		      content: machakosInfo
+		  });
 		var machakosMarker  = new google.maps.Marker({
 			position: new google.maps.LatLng(-1.423436, 36.965799),
 			map: map,
 			title: "Machakos",
 			animation: google.maps.Animation.DROP
 		});
-		google.maps.event.addListener(machakosMarker, 'click', toggleBounce);
+		var truckRoute = new google.maps.Polyline({
+		    path: truckRouteCoord,
+		    geodesic: true,
+		    strokeColor: '#FF0000',
+		    strokeOpacity: 1.0,
+		    strokeWeight: 2,
+		    map: map
+		  });
+		// google.maps.event.addListener(machakosMarker, 'click', toggleBounce);
+		google.maps.event.addListener(machakosMarker, 'click', function() {
+		    machakosInfoWindow.open(map,machakosMarker);
+		  });
 
 		function loadScript () {
 			var script = document.createElement('script');
